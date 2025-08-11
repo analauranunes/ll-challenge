@@ -24,4 +24,6 @@ export interface IOrderRepository {
     productValue,
     purchaseDate,
   }: TGetOrderSheetDTO): Promise<TGetOrderSheetDTO>;
+
+  getAllOrders(): Promise<TGetOrderSheetDTO[]>;
 }

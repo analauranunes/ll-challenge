@@ -26,4 +26,17 @@ export default class OrderRepository implements IOrderRepository {
       },
     });
   }
+
+  getAllOrders() {
+    return this.prisma.order.findMany({
+      select: {
+        clientName: true,
+        orderId: true,
+        productId: true,
+        productValue: true,
+        purchaseDate: true,
+        userId: true,
+      },
+    });
+  }
 }

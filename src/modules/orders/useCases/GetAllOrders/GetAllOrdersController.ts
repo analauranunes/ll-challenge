@@ -7,11 +7,8 @@ export default class GetAllOrdersController {
   }
 
   async handle(request: Request, response: Response): Promise<Response | void> {
-    console.log("GetAllOrdersController");
-
     try {
       const data = await this.getAllOrdersUseCase.execute();
-      console.log(data);
 
       return response.status(200).json(data);
     } catch (error) {

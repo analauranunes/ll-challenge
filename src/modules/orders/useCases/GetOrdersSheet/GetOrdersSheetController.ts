@@ -1,11 +1,17 @@
 import { Decimal } from "@prisma/client/runtime/library";
 import { Request, Response } from "express";
 import PublicGoogleSheetsParser from "public-google-sheets-parser";
+import { formatOrdersList } from "../../../../utils/formatOrdersList";
+import GetAllOrdersUseCase from "../GetAllOrders/GetAllOrdersUseCase";
 import GetOrdersSheetUseCase from "./GetOrdersSheetUseCase";
 
 export default class GetOrdersSheetController {
-  constructor(private getOrdersSheetUseCase: GetOrdersSheetUseCase) {
+  constructor(
+    private getOrdersSheetUseCase: GetOrdersSheetUseCase,
+    private getAllOrdersUseCase: GetAllOrdersUseCase,
+  ) {
     this.getOrdersSheetUseCase = getOrdersSheetUseCase;
+    this.getAllOrdersUseCase = getAllOrdersUseCase;
   }
   async handle(request: Request, response: Response): Promise<Response | void> {
     try {
@@ -18,6 +24,8 @@ export default class GetOrdersSheetController {
       const parsedSheet = new PublicGoogleSheetsParser(id);
       const rows = await parsedSheet.parse();
 
+      const currentSheetOrders = [];
+
       for (const row of rows) {
         const rowValue = Object.values(row)[0] as string;
 
@@ -26,7 +34,6 @@ export default class GetOrdersSheetController {
         const orderId = Number(rowValue.substring(55, 65));
         const productId = Number(rowValue.substring(65, 75));
         const productValue = new Decimal(Number(rowValue.substring(75, 87)));
-        console.log({ productValue });
         const purchaseDate = this.formattedDate(rowValue.substring(87));
 
         await this.getOrdersSheetUseCase.execute({
@@ -37,9 +44,20 @@ export default class GetOrdersSheetController {
           productValue,
           purchaseDate,
         });
+
+        currentSheetOrders.push({
+          userId,
+          clientName,
+          orderId,
+          productId,
+          productValue,
+          purchaseDate,
+        });
       }
 
-      return response.status(201).json({ success: true });
+      const data = formatOrdersList(currentSheetOrders);
+
+      return response.status(201).json(data);
     } catch (error) {
       console.log("GetOrdersSheetController: unexpected error", { error });
     }

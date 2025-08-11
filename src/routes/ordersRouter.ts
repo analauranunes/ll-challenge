@@ -9,7 +9,7 @@ ordersRouter.get("/", async (request, response) => {
   return getAllOrdersController.handle(request, response);
 });
 
-ordersRouter.get("/sheet/:id", async (request, response) => {
+ordersRouter.get("/sheet", async (request, response) => {
   const { getOrdersSheetController } = await GetOrdersSheet();
   return getOrdersSheetController.handle(request, response);
 });

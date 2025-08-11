@@ -2,20 +2,15 @@ import { Decimal } from "@prisma/client/runtime/library";
 import { Request, Response } from "express";
 import PublicGoogleSheetsParser from "public-google-sheets-parser";
 import { formatOrdersList } from "../../../../utils/formatOrdersList";
-import GetAllOrdersUseCase from "../GetAllOrders/GetAllOrdersUseCase";
 import GetOrdersSheetUseCase from "./GetOrdersSheetUseCase";
 
 export default class GetOrdersSheetController {
-  constructor(
-    private getOrdersSheetUseCase: GetOrdersSheetUseCase,
-    private getAllOrdersUseCase: GetAllOrdersUseCase,
-  ) {
+  constructor(private getOrdersSheetUseCase: GetOrdersSheetUseCase) {
     this.getOrdersSheetUseCase = getOrdersSheetUseCase;
-    this.getAllOrdersUseCase = getAllOrdersUseCase;
   }
   async handle(request: Request, response: Response): Promise<Response | void> {
     try {
-      const { id } = request.params;
+      const { id } = request.query as { id: string };
 
       if (!id) {
         return response.status(400).json({ error: "Missing google sheet id" });

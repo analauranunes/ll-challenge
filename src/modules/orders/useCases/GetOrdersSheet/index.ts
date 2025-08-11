@@ -11,7 +11,6 @@ export async function GetOrdersSheet() {
   const getAllOrdersUseCase = new GetAllOrdersUseCase(ordersRepository);
   const getOrdersSheetController = new GetOrdersSheetController(
     getOrdersSheetUseCase,
-    getAllOrdersUseCase,
   );
 
   return { getOrdersSheetController, getOrdersSheetUseCase };

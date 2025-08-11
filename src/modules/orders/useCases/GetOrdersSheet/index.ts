@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import OrderRepository from "../../repositories/ordersRepository";
+import OrderRepository from "../../repositories/OrdersRepository";
 import GetOrdersSheetController from "./GetOrdersSheetController";
 import GetOrdersSheetUseCase from "./GetOrdersSheetUseCase";
 

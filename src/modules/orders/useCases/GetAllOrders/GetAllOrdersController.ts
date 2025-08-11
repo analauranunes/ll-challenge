@@ -12,7 +12,7 @@ export default class GetAllOrdersController {
 
       return response.status(200).json(data);
     } catch (error) {
-      console.log("GetAllOrdersController: unexpected error", { error });
+      console.log("[GetAllOrdersController]: unexpected error", { error });
     }
   }
 }

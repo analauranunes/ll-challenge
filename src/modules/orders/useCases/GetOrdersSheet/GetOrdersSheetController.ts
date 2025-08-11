@@ -59,7 +59,8 @@ export default class GetOrdersSheetController {
 
       return response.status(201).json(data);
     } catch (error) {
-      console.log("GetOrdersSheetController: unexpected error", { error });
+      console.log("[GetOrdersSheetController]: unexpected error", { error });
+      throw error;
     }
   }
 

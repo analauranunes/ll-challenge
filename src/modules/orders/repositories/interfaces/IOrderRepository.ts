@@ -1,5 +1,5 @@
 import { Decimal } from "@prisma/client/runtime/library";
-import { TGetOrderSheetDTO } from "../../useCases/GetOrdersSheet/types";
+import { TGetOrderSheetDTO } from "../../../../types";
 
 export type TFormattedOrder = {
   userId: number;

@@ -1,5 +1,5 @@
 import { TFormattedOrder } from "../modules/orders/repositories/interfaces/IOrderRepository";
-import { TGetOrderSheetDTO } from "../modules/orders/useCases/GetOrdersSheet/types";
+import { TGetOrderSheetDTO } from "../types";
 
 export function formatOrdersList(orders: TGetOrderSheetDTO[]) {
   const formattedOrders: TFormattedOrder = [];

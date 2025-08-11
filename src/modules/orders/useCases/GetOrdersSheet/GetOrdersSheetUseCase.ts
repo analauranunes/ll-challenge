@@ -1,5 +1,5 @@
+import { TGetOrderSheetDTO } from "../../../../types";
 import { IOrderRepository } from "../../repositories/interfaces/IOrderRepository";
-import { TGetOrderSheetDTO } from "./types";
 
 export default class GetOrdersSheetUseCase {
   constructor(private orderRepository: IOrderRepository) {

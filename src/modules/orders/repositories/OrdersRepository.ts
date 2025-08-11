@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { TGetOrderSheetDTO } from "../useCases/GetOrdersSheet/types";
+import { TGetOrderSheetDTO } from "../../../types";
 import { IOrderRepository } from "./interfaces/IOrderRepository";
 
 export default class OrderRepository implements IOrderRepository {
@@ -39,4 +39,6 @@ export default class OrderRepository implements IOrderRepository {
       },
     });
   }
+
+  getFilteredOrders() {}
 }

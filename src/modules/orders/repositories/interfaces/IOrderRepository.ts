@@ -1,5 +1,5 @@
 import { Decimal } from "@prisma/client/runtime/library";
-import { TGetOrderSheetDTO } from "../../../../types";
+import { TGetOrderSheetDTO, TOrdersFilter } from "../../../../types";
 
 export type TFormattedOrder = {
   userId: number;
@@ -25,5 +25,15 @@ export interface IOrderRepository {
     purchaseDate,
   }: TGetOrderSheetDTO): Promise<TGetOrderSheetDTO>;
 
-  getAllOrders(): Promise<TGetOrderSheetDTO[]>;
+  getAllOrders({
+    filterBy,
+    orderId,
+    start,
+    end,
+  }: {
+    filterBy: TOrdersFilter;
+    orderId?: string;
+    start?: string;
+    end?: string;
+  }): Promise<TGetOrderSheetDTO[]>;
 }

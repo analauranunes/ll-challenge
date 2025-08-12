@@ -8,3 +8,5 @@ export type TGetOrderSheetDTO = {
   productValue: Decimal;
   purchaseDate: Date;
 };
+
+export type TOrdersFilter = "ALL" | "PERIOD" | "ORDER_ID";

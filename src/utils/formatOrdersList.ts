@@ -5,46 +5,43 @@ export function formatOrdersList(orders: TGetOrderSheetDTO[]) {
   const formattedOrders: TFormattedOrder = [];
 
   for (const order of orders) {
-    if (
-      !formattedOrders.find(
-        (formattedOrder) => formattedOrder.userId === order.userId,
-      )
-    ) {
-      formattedOrders.push({
+    let userOrderExists = formattedOrders.find(
+      (formattedOrder) => formattedOrder.userId === order.userId,
+    );
+
+    if (!userOrderExists) {
+      userOrderExists = {
         name: order.clientName,
         userId: order.userId,
-        orders: [
-          {
-            orderId: order.orderId,
-            purchaseDate: order.purchaseDate,
-            total: order.productValue,
-            products: [
-              {
-                productId: order.productId,
-                value: order.productValue,
-              },
-            ],
-          },
-        ],
-      });
+        orders: [],
+      };
+      formattedOrders.push(userOrderExists);
     }
 
-    for (const formattedOrder of formattedOrders) {
-      if (formattedOrder.userId === order.userId) {
-        const isNewProduct = formattedOrder.orders.find((orderMap) =>
-          orderMap.products.find(
-            (products) => products.productId !== order.productId,
-          ),
-        );
+    let existentOrder = userOrderExists.orders.find(
+      (orderFind) => orderFind.orderId === order.orderId,
+    );
+    if (!existentOrder) {
+      existentOrder = {
+        orderId: order.orderId,
+        purchaseDate: order.purchaseDate,
+        total: order.productValue,
+        products: [],
+      };
+      userOrderExists.orders.push(existentOrder);
+    }
 
-        if (isNewProduct) {
-          isNewProduct.total = isNewProduct.total.plus(order.productValue);
-          isNewProduct.products.push({
-            productId: order.productId,
-            value: order.productValue,
-          });
-        }
-      }
+    const existentProduct = existentOrder.products.find(
+      (product) => product.productId === order.productId,
+    );
+
+    if (!existentProduct) {
+      existentOrder.products.push({
+        productId: order.productId,
+        value: order.productValue,
+      });
+
+      existentOrder.total = existentOrder.total.plus(order.productValue);
     }
   }
 

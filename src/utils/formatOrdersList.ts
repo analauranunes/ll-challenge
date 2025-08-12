@@ -1,3 +1,4 @@
+import { Decimal } from "@prisma/client/runtime/library";
 import { TFormattedOrder } from "../modules/orders/repositories/interfaces/IOrderRepository";
 import { TGetOrderSheetDTO } from "../types";
 
@@ -25,7 +26,7 @@ export function formatOrdersList(orders: TGetOrderSheetDTO[]) {
       existentOrder = {
         orderId: order.orderId,
         purchaseDate: order.purchaseDate,
-        total: order.productValue,
+        total: new Decimal(0),
         products: [],
       };
       userOrderExists.orders.push(existentOrder);

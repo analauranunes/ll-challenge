@@ -43,8 +43,8 @@ Para poder rodar os testes do projeto:
 
 Essa rota recebe o id do google sheets pra podermos retornar os dados dos pedidos formatados como queremos. Deixamos salvo no nosso banco todos os pedidos, assim conseguimos fazer buscas com nosso filtro.
 
-````
+```
   /orders?filterBy=PERIOD&start=2023-12-08&end=2023-12-10
 ```
+
 Com essa rota get, conseguimos acessar todos os pedidos já existentes no banco e com o JSON de retorno formatado. Também conseguimos utilizar os filtros, sendo eles: ALL | PERIOD | ORDER_ID. O filtro PERIOD necessita das datas de "start" e "end". Já o ORDER_ID precisa receber o id do pedido.
-````
